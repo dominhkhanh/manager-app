@@ -1,0 +1,39 @@
+<div mat-dialog-title>
+    <h1>{{data ? 'Edit Product': 'Add Product'}}</h1>
+</div>
+<form [formGroup]="productForm" (ngSubmit)="onFormSubmit()">
+    <div mat-dialog-content class="content">
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" placeholder="Name" formControlName="name" required>
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput type="text" placeholder="Description" formControlName="description">
+            </mat-form-field>
+        </div>
+        <div class="row">
+            <mat-form-field appearance="outline">
+                <mat-label>Type</mat-label>
+                <mat-select name="type" formControlName="type">
+                    @for (type of typeList; track type) {
+                    <mat-option [value]="type.value">{{type.viewValue}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input matInput type="number" min="0" placeholder="Price" formControlName="price" required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions class="action">
+        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
+        <button mat-raised-button color="primary" type="submit" [disabled]="productForm.invalid || loading">
+            {{data ? 'Update': 'Save'}}
+        </button>
+    </div>
+</form>
